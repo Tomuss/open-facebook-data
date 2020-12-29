@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Mon profil</title>
+        <meta name="author" content="Tomus">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <h1>Vos données Facebook</h1>
+        <h2>Votre profil</h2>
+        <p>
+            ID: <%= user.id %><br/>
+            Nom: <%= user.displayName %><br/>
+        </p>
+        <h2>Les pages auquelles vous avez donné accés.</h2>
+        <p>
+            <% pages.forEach(function(page){ %>
+                <a href="pages/<%= page.id %>" ><%= page.name %></a>
+            <% }); %>
+        </p>
+    </body>
+</html>

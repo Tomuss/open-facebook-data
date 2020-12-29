@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>open-facebook-data</title>
+        <meta name="author" content="Tomus">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+
+        <h1>Liberez vos données Facebook!</h1>
+        <% if (!user) { %>
+            <p>Connectez vous sur Facebook et selectionez les pages aue vous souhaitez liberer. Nous récupérerons les évenements pour les rendre accesibles via notre API!</p>
+            <a href="/login/facebook">Connexion</a>
+        <% } else { %>
+            <% if ( error ) { %>
+                <p>Erreur lors de la récupération de vos données, merci d'envoyer un mail à thomus.simon@gmail.com.</p>
+            <% } else { %>
+                <p>Bonjour, <%= user.displayName %>. <a href="/users/profile">Clique ici</a> pour consulter les données récupérées de tes pages.</p>
+            <% } %>
+        <% } %>
+    </body>
+</html>

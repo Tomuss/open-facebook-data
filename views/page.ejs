@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Page facebook</title>
+        <meta name="author" content="Tomus">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <h1>Mes évenements</h1>
+
+        <div>
+            <% events.forEach(function(event){ %>
+                <h2><%= event.name %></h2>
+                <p>Lieu : <%= event.place.name %>. Du <%= event.start_time %> au <%= event.end_time %></p>
+                <p><%= event.description %></p>
+            <% }); %>
+            <a href="/users/profile">Mon profil</a>
+        </div>
+    </body>
+</html>
