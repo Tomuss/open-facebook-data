@@ -82,6 +82,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.enable("trust proxy");
+
 //MongoDB connexion
 const mongoUri = "mongodb+srv://"+process.env['MONGODB_USER']+":"+process.env['MONGODB_PWD']+"@"+process.env['MONGODB_URI']+"?retryWrites=true&w=majority";
 const mongoClient = new MongoClient(mongoUri, { useNewUrlParser: true });
