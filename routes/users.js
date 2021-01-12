@@ -6,11 +6,9 @@ const axios = require('axios');
 router.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res, next){
-    var url = 'https://graph.facebook.com/'+req.user.id+'/accounts';
-    var pageName;
     axios({
         method: 'get',
-        url: url,
+        url: 'https://graph.facebook.com/'+req.user.id+'/accounts',
         params: {
             access_token: req.user.token
         }})
@@ -28,13 +26,15 @@ router.get('/profile',
                     page.events = response.data.data;
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.log(`Erreur lors de la récupération des données facebook: ${error}`);
+                    return next(error);
                 });
             });
             res.render('profile', { user: req.user, pages: pages });
         })
         .catch(function (error) {
-            console.log(error);
+            console.log(`Erreur lors de la récupération des données facebook: ${error}`);
+            return next(error);
         }
     );
   }
@@ -55,8 +55,8 @@ router.get('/pages/:id',
         res.render('page', { events: response.data.data });
     })
     .catch(function (error) {
-        console.log(error);
-        res.redirect('/');
+        console.log(`Erreur lors de la récupération des données facebook: ${error}`);
+        return next(error);
     });
   }
 );

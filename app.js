@@ -7,6 +7,7 @@ const lessMiddleware = require('less-middleware');
 const logger = require('morgan');
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
+const MongoClient = require('mongodb').MongoClient;
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -82,7 +83,6 @@ app.use(function(err, req, res, next) {
 });
 
 //MongoDB connexion
-const MongoClient = require('mongodb').MongoClient;
 const mongoUri = "mongodb+srv://"+process.env['MONGODB_USER']+":"+process.env['MONGODB_PWD']+"@"+process.env['MONGODB_URI']+"?retryWrites=true&w=majority";
 const mongoClient = new MongoClient(mongoUri, { useNewUrlParser: true });
 mongoClient.connect()
