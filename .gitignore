@@ -104,4 +104,4 @@ dist
 .tern-port
 
 #Netbeans IDE
-nbproject/*
+nbproject/
