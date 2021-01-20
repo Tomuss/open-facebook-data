@@ -65,6 +65,8 @@ router.get('/facebook',
                         res.redirect('/?error=true');
                     });
                 });
+                // Si l'on ne récupére pas de page
+                res.redirect('/');
             })
             .catch(function (error) {
                 console.error(`Erreur lors de la récupération des données facebook: ${error}`);
