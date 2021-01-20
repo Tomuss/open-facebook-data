@@ -11,15 +11,16 @@
     <body>
 
         <h1>Liberez vos données Facebook!</h1>
-        <% if (!user) { %>
+        <% if( error_fb ) { %>
+            <p>Erreur de connexion à facebook : <%= error_fb %>.</p>
+            <p>Merci d'envoyer un mail à thomus.simon@gmail.com.</p>
+            <a href="/login/facebook">Re-essayer</a>
+        <% } else if (!user) { %>
             <p>Connectez vous sur Facebook et selectionez les pages que vous souhaitez liberer. Nous récupérerons les évenements pour les rendre accesibles via notre API!</p>
             <a href="/login/facebook">Connexion</a>
         <% } else { %>
             <% if ( error ) { %>
                 <p>Erreur lors de la récupération de vos données, merci d'envoyer un mail à thomus.simon@gmail.com.</p>
-            <% } else if( error_fb ) { %>
-                <p>Erreur de connexion à facebook : <%= error_fb %>.</p>
-                <p>Merci d'envoyer un mail à thomus.simon@gmail.com.</p>
             <% } else { %>
                 <p>Bonjour, <%= user.displayName %>. <a href="/users/profile">Clique ici</a> pour consulter les données récupérées de tes pages.</p>
             <% } %>

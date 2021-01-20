@@ -8,7 +8,7 @@ router.use(passport.session());
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {user: req.user, error: req.query.error, error_fb: req.query.error_code});
+    res.render('index', {user: req.user, error: req.query.error, error_fb: req.query.error_fb});
 });
 
 /* Facebook auth routes */
@@ -18,6 +18,10 @@ router.get('/login/facebook',
 
 router.get('/facebook',
         passport.authenticate('facebook', {failureRedirect: '/'}),
+        function (err, req, res, next) {
+            // Erreur facebook lors de l'authentification
+            res.redirect('/?error_fb='+req.query.error_message);
+        },
         function (req, res, next) {
             var url = 'https://graph.facebook.com/' + req.user.id + '/accounts';
             var pages;
