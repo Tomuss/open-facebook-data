@@ -15,11 +15,12 @@
             ID: <%= user.id %><br/>
             Nom: <%= user.displayName %><br/>
         </p>
-        <h2>Les pages auquelles vous avez donné accés.</h2>
+        <h2>Les pages auquelles vous avez donné accés :</h2>
         <p>
             <% pages.forEach(function(page){ %>
                 <a href="pages/<%= page.id %>" ><%= page.name %></a>
             <% }); %>
         </p>
+        <h3><a href="/logout">Se déconnecter</a></h3>
     </body>
 </html>
