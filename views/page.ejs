@@ -13,9 +13,11 @@
 
         <div>
             <% events.forEach(function(event){ %>
-                <h2><%= event.name %></h2>
-                <p>Lieu : <%= event.place.name %>. Du <%= event.start_time %> au <%= event.end_time %></p>
-                <p><%= event.description %></p>
+                <% if(event) { %>
+                    <h2><%= event.name %></h2>
+                    <p>Lieu : <%= event.place.name %>. Du <%= event.start_time %> au <%= event.end_time %></p>
+                    <p><%= event.description %></p>
+                <% } %>
             <% }); %>
             <a href="/users/profile">Mon profil</a>
         </div>
