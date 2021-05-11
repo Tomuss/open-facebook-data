@@ -66,7 +66,7 @@ router.get('/pages/:pageId/events/:eventId',
   function(req, res, next){
     axios({
         method: 'get',
-        url: 'https://graph.facebook.com/' + req.params.pageId + '/events/' + req.params.eventId,
+        url: 'https://graph.facebook.com/' + req.params.eventId,
         params: {
             access_token: req.user.token
         }
