@@ -46,7 +46,7 @@ router.get('/pages/:id',
   function(req, res, next){
     axios({
         method: 'get',
-        url: 'https://graph.facebook.com/' + req.params.id + '/events',
+        url: 'https://graph.facebook.com/' + req.params.id + '/events?fields=cover,name,owner',
         params: {
             access_token: req.user.token
         }
@@ -66,13 +66,12 @@ router.get('/pages/:pageId/events/:eventId',
   function(req, res, next){
     axios({
         method: 'get',
-        url: 'https://graph.facebook.com/' + req.params.eventId,
+        url: 'https://graph.facebook.com/' + req.params.eventId + '?fields=cover',
         params: {
             access_token: req.user.token
         }
     })
     .then(function (response) {
-        console.log(response);
         console.log(response.data);
         res.render('event', { event: response.data, pageId: req.params.pageId });
     })
