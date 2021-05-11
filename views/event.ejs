@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Evenement facebook</title>
+        <meta name="author" content="Tomus">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <div>
+            <% if(event) { %>
+                <h1><%= event.name %></h1>
+                <p><%= event.description %></p>
+            <% } %>
+            <a href="/users/pages/<%= pageId %>">Retour sur la page</a>
+            <a href="/users/profile">Mon profil</a>
+        </div>
+    </body>
+</html>

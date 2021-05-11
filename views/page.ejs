@@ -14,7 +14,7 @@
         <div>
             <% events.forEach(function(event){ %>
                 <% if(event) { %>
-                    <h2><%= event.name %></h2>
+                <h2><a href="/users/pages/<%= pageId %>/events/<%= event.id %>"><%= event.name %></a></h2>
                     <% if(event.place) { %>
                         <p>Lieu : <%= event.place.name %>.</p>
                     <% } %>
