@@ -72,8 +72,9 @@ router.get('/pages/:pageId/events/:eventId',
         }
     })
     .then(function (response) {
-        console.log(response.data.data);
-        res.render('event', { event: response.data.data, pageId: req.params.pageId });
+        console.log(response);
+        console.log(response.data);
+        res.render('event', { event: response.data, pageId: req.params.pageId });
     })
     .catch(function (error) {
         console.log(`Erreur lors de la récupération d'un évenement facebook: ${error}`);
