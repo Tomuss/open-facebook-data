@@ -12,9 +12,12 @@
         <div>
             <% if(event) { %>
                 <h1><%= event.name %></h1>
+                <% if(event.cover) { %>
+                    <img src="<%= event.cover.source %>" alt="event.name">
+                <% } %>
                 <p><%= event.description %></p>
             <% } %>
-            <a href="/users/pages/<%= pageId %>">Retour sur la page</a>
+            <a href="/users/pages/<%= pageId %>">Retour sur la page</a><br/>
             <a href="/users/profile">Mon profil</a>
         </div>
     </body>

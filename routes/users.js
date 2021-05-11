@@ -72,7 +72,6 @@ router.get('/pages/:pageId/events/:eventId',
         }
     })
     .then(function (response) {
-        console.log(response.data);
         res.render('event', { event: response.data, pageId: req.params.pageId });
     })
     .catch(function (error) {
