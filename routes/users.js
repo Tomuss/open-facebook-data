@@ -26,14 +26,14 @@ router.get('/profile',
                     page.events = response.data.data;
                 })
                 .catch(function (error) {
-                    console.log(`Erreur lors de la récupération des données facebook: ${error}`);
+                    console.log(`Erreur lors de la récupération des événements facebook: ${error}`);
                     return next(error);
                 });
             });
             res.render('profile', { user: req.user, pages: pages });
         })
         .catch(function (error) {
-            console.log(`Erreur lors de la récupération des données facebook: ${error}`);
+            console.log(`Erreur lors de la récupération des pages facebook: ${error}`);
             return next(error);
         }
     );
@@ -55,7 +55,7 @@ router.get('/pages/:id',
         res.render('page', { events: response.data.data, pageId: req.params.id });
     })
     .catch(function (error) {
-        console.log(`Erreur lors de la récupération des données facebook: ${error}`);
+        console.log(`Erreur lors de la récupération des événements facebook: ${error}`);
         return next(error);
     });
   }
@@ -76,7 +76,7 @@ router.get('/pages/:pageId/events/:eventId',
         res.render('event', { event: response.data.data, pageId: req.params.pageId });
     })
     .catch(function (error) {
-        console.log(`Erreur lors de la récupération des données facebook: ${error}`);
+        console.log(`Erreur lors de la récupération d'un évenement facebook: ${error}`);
         return next(error);
     });
   }
