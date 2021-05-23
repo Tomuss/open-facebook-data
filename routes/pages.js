@@ -40,7 +40,7 @@ router.get('/:id', function(req, res, next){
         if(page){
             axios({
                 method: 'get',
-                url: 'https://graph.facebook.com/' + page.fbId + '/events',
+                url: 'https://graph.facebook.com/' + page.fbId + '/events?fields=id',
                 params: {
                     access_token: page.token
                 }
@@ -48,6 +48,27 @@ router.get('/:id', function(req, res, next){
             .then(function (response) {
                 res.json(response.data.data);
                 res.end();
+                var eventRequest = [];
+                response.data.data.foreach(function (event){
+                    eventRequest.push({method: "GET", relative_url: event.id+"?fields=name,description,place,start_time,cover,owner"});
+                });
+                axios({
+                    method: 'post',
+                    url: 'https://graph.facebook.com/' + page.fbId + '/',
+                    params: {
+                        batch : eventRequest,
+                        access_token: page.token,
+                        eventRequest: false
+                    }
+                })
+                .then(function (response) {
+                    res.json(response.data);
+                    res.end();
+                })
+                .catch(function (error) {
+                    console.error(`Erreur lors de la récupération des données facebook: ${error}`);
+                    return next(error);
+                });
             })
             .catch(function (error) {
                 console.error(`Erreur lors de la récupération des données facebook: ${error}`);
