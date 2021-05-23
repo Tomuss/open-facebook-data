@@ -47,8 +47,9 @@ router.get('/:id', function(req, res, next){
             })
             .then(function (response) {
                 console.log(response.data.data);
+                var events = response.data.data;
                 var eventRequest = [];
-                response.data.data.foreach(function (event){
+                events.foreach(function (event){
                     eventRequest.push({method: "GET", relative_url: event.id+"?fields=name,description,place,start_time,cover,owner"});
                 });
                 axios({
