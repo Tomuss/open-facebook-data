@@ -47,7 +47,7 @@ router.get('/:id', function(req, res, next){
             })
             .then(function (response) {
                 console.log(response.data.data);
-                var events = response.data.data;
+                var events = JSON.parse(response.data.data);
                 var eventRequest = [];
                 events.foreach(function (event){
                     eventRequest.push({method: "GET", relative_url: event.id+"?fields=name,description,place,start_time,cover,owner"});
