@@ -55,8 +55,7 @@ router.get('/:id', function(req, res, next){
                 console.log(eventRequest);
                 var params = {
                         batch : eventRequest,
-                        access_token: page.token,
-                        include_headers: false
+                        access_token: page.token
                     };
                 console.log(params);
                 axios({
