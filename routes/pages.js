@@ -46,15 +46,14 @@ router.get('/:id', function(req, res, next){
                 }
             })
             .then(function (response) {
-                res.json(response.data.data);
-                res.end();
+                console.log(response.data.data);
                 var eventRequest = [];
                 response.data.data.foreach(function (event){
                     eventRequest.push({method: "GET", relative_url: event.id+"?fields=name,description,place,start_time,cover,owner"});
                 });
                 axios({
                     method: 'post',
-                    url: 'https://graph.facebook.com/' + page.fbId + '/',
+                    url: 'https://graph.facebook.com/',
                     params: {
                         batch : eventRequest,
                         access_token: page.token,
