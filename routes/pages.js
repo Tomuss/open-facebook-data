@@ -49,8 +49,9 @@ router.get('/:id', function(req, res, next){
                 var events = response.data.data;
                 var eventRequest = [];
                 events.forEach(function (event){
-                    eventRequest.push({method: "GET", relative_url: event.id+""});
+//                    eventRequest.push({method: "GET", relative_url: event.id+""});
                 });
+                eventRequest.push({method: "GET", relative_url: "me"});
                 console.log(eventRequest);
                 var params = {
                         batch : eventRequest,
