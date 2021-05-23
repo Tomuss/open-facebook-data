@@ -46,12 +46,10 @@ router.get('/:id', function(req, res, next){
                 }
             })
             .then(function (response) {
-                console.log(response.data);
-                console.log(response.data.data);
-                var events = JSON.parse(response.data.data);
+                var events = response.data.data;
                 console.log(events);
                 var eventRequest = [];
-                events.foreach(function (event){
+                events.forEach(function (event){
                     eventRequest.push({method: "GET", relative_url: event.id+"?fields=name,description,place,start_time,cover,owner"});
                 });
                 axios({
