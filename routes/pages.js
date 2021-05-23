@@ -47,18 +47,18 @@ router.get('/:id', function(req, res, next){
             })
             .then(function (response) {
                 var events = response.data.data;
-                console.log(events);
                 var eventRequest = [];
                 events.forEach(function (event){
                     eventRequest.push({method: "GET", relative_url: event.id+"?fields=name,description,place,start_time,cover,owner"});
                 });
+                console.log(eventRequest);
                 axios({
                     method: 'post',
                     url: 'https://graph.facebook.com/',
                     params: {
                         batch : eventRequest,
                         access_token: page.token,
-                        eventRequest: false
+                        include_headers: false
                     }
                 })
                 .then(function (response) {
