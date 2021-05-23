@@ -52,14 +52,17 @@ router.get('/:id', function(req, res, next){
                     eventRequest.push({method: "GET", relative_url: event.id+"?fields=name,description,place,start_time,cover,owner"});
                 });
                 console.log(eventRequest);
-                axios({
-                    method: 'post',
-                    url: 'https://graph.facebook.com/',
-                    params: {
+                var params = {
                         batch : eventRequest,
                         access_token: page.token,
                         include_headers: false
-                    }
+                    };
+                console.log(params);
+                axios({
+                    method: 'post',
+                    url: 'https://graph.facebook.com/',
+                    params: params
+                    
                 })
                 .then(function (response) {
                     res.json(response.data);
