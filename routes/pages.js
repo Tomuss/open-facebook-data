@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const createError = require('http-errors');
 const ObjectID = require('mongodb').ObjectID;
+const querystring = require('querystring');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -51,7 +52,7 @@ router.get('/:id', function(req, res, next){
                 events.forEach(function (event){
 //                    eventRequest.push({method: "GET", relative_url: event.id+""});
                 });
-                eventRequest.push({method: 'GET', relative_url: page.fbId+''});
+                eventRequest.push({method: 'GET', relative_url: page.fbId});
                 console.log(eventRequest);
                 var params = {
                         batch : eventRequest,
@@ -61,7 +62,7 @@ router.get('/:id', function(req, res, next){
                 axios({
                     method: 'post',
                     url: 'https://graph.facebook.com/',
-                    params: params
+                    params: querystring.stringify(params)
                     
                 })
                 .then(function (response) {
