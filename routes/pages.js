@@ -63,6 +63,7 @@ router.get('/:id', function(req, res, next){
                     
                 })
                 .then(function (response) {
+                    console.log(response);
                     var events = [];
                     response.data.forEach(function (event){
                         var json = JSON.parse(event.body);
