@@ -59,8 +59,8 @@ router.get('/:id', function(req, res, next){
                         access_token: page.token
                     };
                 console.log(parms);
-                console.log(querystring(parms));
-                console.log(querystring(parms, { arrayFormat: "repeat" }));
+                console.log(querystring.stringify(parms));
+                console.log(querystring.stringify(parms, { arrayFormat: "repeat" }));
                 axios({
                     method: 'post',
                     url: 'https://graph.facebook.com/',
