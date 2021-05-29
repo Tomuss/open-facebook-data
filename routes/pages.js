@@ -52,13 +52,15 @@ router.get('/:id', function(req, res, next){
                 events.forEach(function (event){
 //                    eventRequest.push({method: "GET", relative_url: event.id+""});
                 });
-                eventRequest.push({method: "GET", relative_url: page.fbId});
+                eventRequest.push({method: 'GET', relative_url: page.fbId});
                 console.log(eventRequest);
+                
                 var parms = {
                         batch : eventRequest,
                         access_token: page.token
                     };
                 console.log(parms);
+                console.log(axios.defaults.paramsSerializer(parms));
                 axios({
                     method: 'post',
                     url: 'https://graph.facebook.com/',
