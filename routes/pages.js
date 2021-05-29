@@ -48,9 +48,10 @@ router.get('/:id', function(req, res, next){
             })
             .then(function (response) {
                 var events = response.data.data;
+                console.log(response.data.data.length+'events');
                 var eventRequest = [];
                 events.forEach(function (event){
-                    eventRequest.push({method: 'GET', relative_url: event.id+ '/roles'});
+                    eventRequest.push({method: 'GET', relative_url: event.id+ '?fields=id,name,start_time,end_time,place,cover,owner,parent_group'});
                 });
                 var parms = {
                         batch : JSON.stringify(eventRequest),
@@ -63,7 +64,6 @@ router.get('/:id', function(req, res, next){
                     
                 })
                 .then(function (response) {
-                    console.log(response);
                     var events = [];
                     response.data.forEach(function (event){
                         var json = JSON.parse(event.body);
