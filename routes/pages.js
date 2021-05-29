@@ -50,7 +50,7 @@ router.get('/:id', function(req, res, next){
                 var events = response.data.data;
                 var eventRequest = [];
                 events.forEach(function (event){
-                    eventRequest.push({method: 'GET', relative_url: event.id+ '?fields=id,name,cover,owner'});
+                    eventRequest.push({method: 'GET', relative_url: event.id+ '?fields=id,name,start_time,end_time,cover,owner,parent_group'});
                 });
                 var parms = {
                         batch : JSON.stringify(eventRequest),
@@ -65,7 +65,9 @@ router.get('/:id', function(req, res, next){
                 .then(function (response) {
                     var events = [];
                     response.data.forEach(function (event){
-                        events.push(JSON.parse(event.body));
+                        var json = JSON.parse(event.body);
+                        json.url = 'https://graph.facebook.com/'+json.id;
+                        events.push(json);
                     });
                     res.json(events);
                     res.end();
