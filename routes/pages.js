@@ -63,7 +63,11 @@ router.get('/:id', function(req, res, next){
                     
                 })
                 .then(function (response) {
-                    res.json(response.data);
+                    var events = [];
+                    response.data.forEach(function (event){
+                        events.push(JSON.parse(event.body));
+                    });
+                    res.json(events);
                     res.end();
                 })
                 .catch(function (error) {
