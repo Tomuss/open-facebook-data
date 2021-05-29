@@ -55,12 +55,11 @@ router.get('/:id', function(req, res, next){
                 eventRequest.push({method: 'GET', relative_url: page.fbId});
                 console.log(eventRequest);
                 var parms = {
-                        batch : eventRequest,
+                        batch : JSON.stringify(eventRequest),
                         access_token: page.token
                     };
                 console.log(parms);
-                console.log(querystring.stringify(parms));
-                console.log(querystring.stringify(parms, { arrayFormat: "repeat" }));
+                console.log(JSON.stringify(eventRequest));
                 axios({
                     method: 'post',
                     url: 'https://graph.facebook.com/',
