@@ -60,7 +60,7 @@ router.get('/:id', function(req, res, next){
                         access_token: page.token
                     };
                 console.log(parms);
-                console.log(axios.defaults.paramsSerializer(parms));
+                console.log(JSON.stringify(parms));
                 axios({
                     method: 'post',
                     url: 'https://graph.facebook.com/',
