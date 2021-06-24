@@ -64,7 +64,6 @@ router.get('/:id', function(req, res, next){
                     result = result.concat(await sendFacebookBatchRequest(eventRequest, page.token));
                 }
 
-                console.log("RES");
                 res.json(result);
                 res.end();
             })
@@ -106,7 +105,6 @@ async function sendFacebookBatchRequest(eventRequest, token){
             json.url = 'https://graph.facebook.com/' + json.id;
             events.push(json);
         });
-        console.log(events);
     } catch (error) {
         console.error(`Erreur lors de la récupération des données facebook: ${error}`);
     }
