@@ -63,7 +63,7 @@ router.get('/:id', function(req, res, next){
 //                    eventRequest.push({method: 'GET', relative_url: event.id+ '?fields=id,name,start_time,end_time,place,cover,owner'});
 //                });
                 if(!eventRequest.length !== 0){
-                    result.concat(sendFacebookBatchRequest(eventRequest, page.token));
+                    result.concat(await sendFacebookBatchRequest(eventRequest, page.token));
                 }
                 console.log("RES");
                 res.json(events);
@@ -83,7 +83,6 @@ router.get('/:id', function(req, res, next){
 );
 
 async function sendFacebookBatchRequest(eventRequest, token){
-    console.log(eventRequest);
     var events = [];
     if(!eventRequest.length === 0){
         return events;
