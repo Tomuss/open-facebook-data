@@ -55,13 +55,13 @@ router.get('/:id', function(req, res, next){
                     eventRequest.push({method: 'GET', relative_url: events[cpt].id+ '?fields=id,name,start_time,end_time,place,cover,owner'});
                     cpt ++;
                     if(cpt % 50 === 0){
-                        result = result.concat(sendFacebookBatchRequest(eventRequest, page.token));
+                        result = result.concat(await sendFacebookBatchRequest(eventRequest, page.token));
                         eventRequest = [];
                     }
                 }
 
                 if(!eventRequest.length !== 0){
-                    result = result.concat(sendFacebookBatchRequest(eventRequest, page.token));
+                    result = result.concat(await sendFacebookBatchRequest(eventRequest, page.token));
                 }
 
                 console.log("RES");
