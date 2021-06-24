@@ -48,33 +48,25 @@ router.get('/:id', function(req, res, next){
             .then(function (response) {
                 var events = response.data.data;
                 var eventRequest = [];
-                events.forEach(function (event){
-                    eventRequest.push({method: 'GET', relative_url: event.id+ '?fields=id,name,start_time,end_time,place,cover,owner'});
-                });
-                var parms = {
-                        batch : JSON.stringify(eventRequest),
-                        access_token: page.token
-                    };
-                axios({
-                    method: 'post',
-                    url: 'https://graph.facebook.com/',
-                    params: parms
-                    
-                })
-                .then(function (response) {
-                    var events = [];
-                    response.data.forEach(function (event){
-                        var json = JSON.parse(event.body);
-                        json.url = 'https://graph.facebook.com/'+json.id;
-                        events.push(json);
-                    });
-                    res.json(events);
-                    res.end();
-                })
-                .catch(function (error) {
-                    console.error(`Erreur lors de la récupération des données facebook: ${error}`);
-                    return next(error);
-                });
+                var result = [];
+                var cpt = 0;
+                // L'API de facebook n'authorize pas plus de 50 requete par batch
+                while (cpt < events.length){
+                    eventRequest.push({method: 'GET', relative_url: events.get(cpt).id+ '?fields=id,name,start_time,end_time,place,cover,owner'});
+                    cpt ++;
+                    if(cpt % 50 === 0){
+                        result.concat(sendFacebookBatchRequest(eventRequest, page.token));
+                        eventRequest = [];
+                    }
+                }
+//                events.forEach(function (event){
+//                    eventRequest.push({method: 'GET', relative_url: event.id+ '?fields=id,name,start_time,end_time,place,cover,owner'});
+//                });
+                if(!eventRequest.length !== 0){
+                    result.concat(sendFacebookBatchRequest(eventRequest, page.token));
+                }
+                res.json(events);
+                res.end();
             })
             .catch(function (error) {
                 console.error(`Erreur lors de la récupération des données facebook: ${error}`);
@@ -89,8 +81,35 @@ router.get('/:id', function(req, res, next){
   }
 );
 
-function sendFacebookBatchRequest(){
+async function sendFacebookBatchRequest(eventRequest, token){
+    var events = [];
+    if(!eventRequest.length === 0){
+        return events;
+    }
     
+    var parms = {
+        batch: JSON.stringify(eventRequest),
+        access_token: token
+    };
+
+    var events = [];
+    try {
+        const reponseFb = await axios({
+            method: 'post',
+            url: 'https://graph.facebook.com/',
+            params: parms
+
+        });
+
+        reponseFb.data.forEach(function (event) {
+            var json = JSON.parse(event.body);
+            json.url = 'https://graph.facebook.com/' + json.id;
+            events.push(json);
+        });
+    } catch (error) {
+        console.error(`Erreur lors de la récupération des données facebook: ${error}`);
+    }
+    return events;
 }
 
 module.exports = router;
