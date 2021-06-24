@@ -52,7 +52,7 @@ router.get('/:id', function(req, res, next){
                 var cpt = 0;
                 // L'API de facebook n'authorize pas plus de 50 requete par batch
                 while (cpt < events.length){
-                    eventRequest.push({method: 'GET', relative_url: events.get(cpt).id+ '?fields=id,name,start_time,end_time,place,cover,owner'});
+                    eventRequest.push({method: 'GET', relative_url: events[cpt].id+ '?fields=id,name,start_time,end_time,place,cover,owner'});
                     cpt ++;
                     if(cpt % 50 === 0){
                         result.concat(sendFacebookBatchRequest(eventRequest, page.token));
