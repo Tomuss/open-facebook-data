@@ -45,7 +45,7 @@ router.get('/:id', function(req, res, next){
                     access_token: page.token
                 }
             })
-            .then(function (response) {
+            .then(async function (response) {
                 var events = response.data.data;
                 var eventRequest = [];
                 var result = [];
@@ -55,7 +55,7 @@ router.get('/:id', function(req, res, next){
                     eventRequest.push({method: 'GET', relative_url: events[cpt].id+ '?fields=id,name,start_time,end_time,place,cover,owner'});
                     cpt ++;
                     if(cpt % 50 === 0){
-                        result.concat(sendFacebookBatchRequest(eventRequest, page.token));
+                        result.concat(await sendFacebookBatchRequest(eventRequest, page.token));
                         eventRequest = [];
                     }
                 }
@@ -65,6 +65,7 @@ router.get('/:id', function(req, res, next){
                 if(!eventRequest.length !== 0){
                     result.concat(sendFacebookBatchRequest(eventRequest, page.token));
                 }
+                console.log("RES");
                 res.json(events);
                 res.end();
             })
@@ -101,13 +102,13 @@ async function sendFacebookBatchRequest(eventRequest, token){
             params: parms
 
         });
-        console.log("REP BATCH");
-        console.log(reponseFb);
+        console.log("REP FB");
         reponseFb.data.forEach(function (event) {
             var json = JSON.parse(event.body);
             json.url = 'https://graph.facebook.com/' + json.id;
             events.push(json);
         });
+        console.log("GET DATA FB");
     } catch (error) {
         console.error(`Erreur lors de la récupération des données facebook: ${error}`);
     }
