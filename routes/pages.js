@@ -82,6 +82,7 @@ router.get('/:id', function(req, res, next){
 );
 
 async function sendFacebookBatchRequest(eventRequest, token){
+    console.log(eventRequest);
     var events = [];
     if(!eventRequest.length === 0){
         return events;
@@ -100,7 +101,8 @@ async function sendFacebookBatchRequest(eventRequest, token){
             params: parms
 
         });
-
+        console.log("REP BATCH");
+        console.log(reponseFb);
         reponseFb.data.forEach(function (event) {
             var json = JSON.parse(event.body);
             json.url = 'https://graph.facebook.com/' + json.id;
